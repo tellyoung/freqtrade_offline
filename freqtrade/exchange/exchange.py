@@ -3,6 +3,7 @@
 Cryptocurrency Exchanges support
 """
 
+import numpy as np
 import asyncio
 import inspect
 import logging
@@ -190,7 +191,14 @@ class Exchange:
         self._api_async: ccxt_pro.Exchange
         self._ws_async: ccxt_pro.Exchange = None
         self._exchange_ws: ExchangeWS | None = None
+        
+        """
+            todo: yuty
+        """
         self._markets: dict = {}
+        self._markets = np.load('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.markets.npy', allow_pickle=True).item()
+
+
         self._trading_fees: dict[str, Any] = {}
         self._leverage_tiers: dict[str, list[dict]] = {}
         # Lock event loop. This is necessary to avoid race-conditions when using force* commands
@@ -661,7 +669,11 @@ class Exchange:
     def _load_async_markets(self, reload: bool = False) -> None:
         try:
             with self._loop_lock:
-                markets = self.loop.run_until_complete(self._api_reload_markets(reload=reload))
+                """
+                    todo: yuty
+                """
+                # markets = self.loop.run_until_complete(self._api_reload_markets(reload=reload))
+                markets = None
 
             if isinstance(markets, Exception):
                 raise markets
@@ -690,7 +702,18 @@ class Exchange:
             # Reload async markets, then assign them to sync api
             retrier(self._load_async_markets, retries=retries)(reload=True)
             self._markets = self._api_async.markets
-            self._api.set_markets(self._api_async.markets, self._api_async.currencies)
+            """
+                todo: yuty
+            """
+            # self._api.set_markets(self._api_async.markets, self._api_async.currencies)
+            import numpy as np
+            # np.save('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.markets.npy', self._api_async.markets)
+            # np.save('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.currencies.npy', self._api_async.currencies)
+            self._api.set_markets(np.load('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.markets.npy', allow_pickle=True).item(), np.load('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.currencies.npy', allow_pickle=True).item())
+
+
+
+            
             # Assign options array, as it contains some temporary information from the exchange.
             self._api.options = self._api_async.options
             if self._exchange_ws:
@@ -1011,7 +1034,14 @@ class Exchange:
         isMin = limit == "min"
 
         try:
+            """
+                todo: yuty
+            """
+            
+            # np.save('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/self.markets.npy', self.markets)
+            # self.markets = np.load('/Users/yutieyang/Documents/yuty/yuty_projects/freqtrade_offline/yuty/tools/_api_async.markets.npy', allow_pickle=True).item()
             market = self.markets[pair]
+            
         except KeyError:
             raise ValueError(f"Can't get market information for symbol {pair}")
 

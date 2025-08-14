@@ -1,0 +1,35 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "backtesting",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "freqtrade/main.py",
+            "console": "integratedTerminal",
+            "python": "/opt/anaconda3/envs/freqtrade_offline2/bin/python",
+            "args": [
+                "backtesting",
+                "--config",
+                "yuty/user_data/configs/open03/config_open03_futures.json",
+                "--userdir",
+                "yuty/user_data",
+                "--strategy",
+                "open03",
+                "--breakdown",
+                "week",
+                "month",
+                "--strategy-path",
+                "yuty/user_data/strategies",
+                "--recursive-strategy-search",
+                "--datadir",
+                "/Users/yutieyang/Documents/yuty/yuty_projects/money_game/Datasets/binance/Vol_top20_202501_202506",
+                "--timerange",
+                "20250501-20250707"
+            ]
+        }
+    ]
+}

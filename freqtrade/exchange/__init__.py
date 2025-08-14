@@ -5,6 +5,8 @@ from freqtrade.exchange.exchange import Exchange
 
 # isort: on
 from freqtrade.exchange.binance import Binance
+from freqtrade.exchange.binance_offline import BinanceOffline
+
 from freqtrade.exchange.bingx import Bingx
 from freqtrade.exchange.bitmart import Bitmart
 from freqtrade.exchange.bitpanda import Bitpanda

@@ -137,21 +137,16 @@ class Backtesting:
         self.rejected_dict: dict[str, list] = {}
 
         self._exchange_name = self.config["exchange"]["name"]
-        if not exchange:
-            exchange = ExchangeResolver.load_exchange(self.config, load_leverage_tiers=True)
-        self.exchange = exchange
+
         """
             todo: yuty
         """
-        from freqtrade.exchange.binance import Binance
-        # Binance()
-        from yuty.tools.save_pickle import save_variable_to_pkl,load_variable_from_pkl
-        # 保存变量
-        save_variable_to_pkl(self.exchange, "example_data.pkl")
+        # if not exchange:
+        #     exchange = ExchangeResolver.load_exchange(self.config, load_leverage_tiers=True)
+        # self.exchange = exchange
 
-        # 加载变量
-        loaded_data = load_variable_from_pkl("example_data.pkl")
-
+        from freqtrade.exchange.binance_offline import BinanceOffline
+        self.exchange = BinanceOffline(config=config, load_leverage_tiers=True, validate=False)
 
         self.dataprovider = DataProvider(self.config, self.exchange)
 
@@ -187,7 +182,13 @@ class Backtesting:
         self._validate_pairlists_for_backtesting()
 
         self.dataprovider.add_pairlisthandler(self.pairlists)
-        self.pairlists.refresh_pairlist()
+
+        """
+            todo: yuty
+        """
+        self.pairlists._whitelist = ['RPL/USDT:USDT', 'CHESS/USDT:USDT', 'VIC/USDT:USDT', 'FUN/USDT:USDT', 'BMT/USDT:USDT', 'SWARMS/USDT:USDT']
+
+        
 
         if len(self.pairlists.whitelist) == 0:
             raise OperationalException("No pair in whitelist.")
