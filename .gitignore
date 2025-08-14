@@ -1,3 +1,5 @@
 .idea/
-.ipynb_checkpoints
-
+.ipynb_checkpoints/
+user_data/data
+user_data/backtest_results
+__pycache__/

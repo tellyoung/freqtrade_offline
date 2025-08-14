@@ -1,0 +1,14 @@
+{
+  // future trading mode
+  "add_config_files": [
+    "trading_mode-futures.json",
+    "blacklist-binance.json",
+    "exampleconfig.json",
+    "pairlist-backtest-static-binance-futures-usdt.json",
+//    "pairlist-volume-binance-usdt.json",
+    "exampleconfig_secret.json",
+  ]
+
+
+}
+

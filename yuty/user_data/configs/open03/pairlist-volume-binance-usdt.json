@@ -1,0 +1,44 @@
+{
+  "pairlists": [
+    {
+      "method": "VolumePairList", // 使用交易对的成交量进行筛选
+      "number_assets": 100, // 保留成交量排名前100的交易对
+      "sort_key": "quoteVolume", // 按成交量（quoteVolume）排序
+      "refresh_period": 1800 // 每1800秒刷新一次筛选结果
+    },
+    {
+      "method": "FullTradesFilter" // 筛选所有有交易记录的交易对
+    },
+    {
+      "method": "AgeFilter", // 根据交易对上市时间进行筛选
+      "min_days_listed": 30 // 只保留上市时间超过30天的交易对
+    },
+    {
+      "method": "PriceFilter", // 根据交易对价格进行筛选
+      "low_price_ratio": 0.01 // 只保留价格低于0.01的交易对
+    },
+    {
+      "method": "SpreadFilter", // 根据交易对的价差比例进行筛选
+      "max_spread_ratio": 0.0075 // 只保留价差比例低于0.0075的交易对
+    },
+    // {
+    //   "method": "RangeStabilityFilter", // 根据价格稳定性进行筛选
+    //   "lookback_days": 3, // 回溯3天的数据
+    //   "min_rate_of_change": 0.03, // 最小变化率为0.03
+    //   "refresh_period": 1800 // 每1800秒刷新一次筛选结果
+    // },
+    // {
+    //   "method": "VolatilityFilter", // 根据价格波动性进行筛选
+    //   "lookback_days": 3, // 回溯3天的数据
+    //   "min_volatility": 0.01, // 最小波动率为0.01
+    //   "max_volatility": 0.75, // 最大波动率为0.75
+    //   "refresh_period": 43200 // 每43200秒刷新一次筛选结果
+    // },
+    {
+      "method": "VolumePairList", // 再次使用成交量进行筛选
+      "number_assets": 80, // 保留成交量排名前80的交易对
+      "sort_key": "quoteVolume" // 按成交量（quoteVolume）排序
+    }
+    // { "method": "ShuffleFilter" } // 随机打乱交易对的顺序
+  ]
+}
